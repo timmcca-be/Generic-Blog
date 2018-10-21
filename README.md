@@ -43,7 +43,7 @@ The main OpenAPI configuration file is `api-v1/api-doc.yml`. Individual routes
 are defined in their respective JavaScript files under `api-v1`. See
 [`express-openapi`](https://www.npmjs.com/package/express-openapi) for more
 details on this. A complete JSON specification of this server can be generated
-by running `npm run generate-doc`, and is saved as `api-v1-doc.json`.
+by running `npm run generate-docs`, and is saved as `api-docs/v1.json`.
 
 ## Design
 
