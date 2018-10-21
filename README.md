@@ -67,6 +67,8 @@ rather than sacrificing the clarity of the code.
 
 ## Future Goals
 
+- Create a collection of automated tests to run after each change before
+committing
 - Create and implement a front-end using React and Bootstrap
 - Implement a database migration solution so that the database can be changed
 without having to be recreated
