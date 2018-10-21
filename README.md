@@ -39,9 +39,9 @@ documented and can be tested at http://localhost:8080/api/v1/docs. If you are
 running a production server, be sure to uncomment `NODE_ENV=production` in
 `.env`.
 
-The main OpenAPI configuration file is `api-v1/api-doc.yml`. Individual routes
-are defined in their respective JavaScript files under `api-v1`. See
-[`express-openapi`](https://www.npmjs.com/package/express-openapi) for more
+The main OpenAPI configuration file is `server/api-v1/api-doc.yml`. Individual
+routes are defined in their respective JavaScript files under `server/api-v1`.
+See [`express-openapi`](https://www.npmjs.com/package/express-openapi) for more
 details on this. A complete JSON specification of this server can be generated
 by running `npm run generate-docs`, and is saved as `api-docs/v1.json`.
 
