@@ -29,7 +29,7 @@ root user is not named `postgres`, replace it with that username.
 Make a copy of `.env.template` named `.env` and update the values of `DB_NAME`,
 `DB_PASS`, and `TOKEN_SECRET`.
 
-Next run `npm import` to install all dependencies.
+Next, run `npm install` to install all dependencies.
 
 ## Usage
 
