@@ -8,8 +8,10 @@ be able to serve as a standalone (however generic) blog platform.
 
 Open a PostgreSQL shell and run the following commands:
 
-`CREATE DATABASE `*`database`*`;`  
-`CREATE USER site WITH ENCRYPTED PASSWORD '`*`password`*`';`
+<pre>
+CREATE DATABASE <i>database</i>;  
+CREATE USER site WITH ENCRYPTED PASSWORD '<i>password</i>';
+</pre>
 
 Change the database name and the password, but leave the name of the database
 user as `site` - this will make the database import process much easier.
@@ -17,7 +19,9 @@ user as `site` - this will make the database import process much easier.
 To import the database, open a command shell in the root directory of this
 project and run this:  
 
-`psql -d `*`database`*` -U `*`postgres`*` -f db-schema.sql`
+<pre>
+psql -d <i>database</i> -U <i>postgres</i> -f db-schema.sql
+</pre>
 
 Replace *`database`* with the name of your database from above. If your database
 root user is not named `postgres`, replace it with that username.
