@@ -1,0 +1,26 @@
+{
+  "name": "generic-blog",
+  "version": "0.1.0",
+  "description": "A generic blog server written in NodeJS with OpenAPI documentation",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "./node_modules/.bin/nodemon server/app.js",
+    "generate-docs": "node server/generateDocs.js"
+  },
+  "author": "Tim McCabe",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-openapi": "^3.0.2",
+    "json-sql": "^0.4.11",
+    "jsonwebtoken": "^8.3.0",
+    "morgan": "^1.9.1",
+    "pg": "^7.5.0",
+    "pg-format": "^1.0.4",
+    "swagger-ui-express": "^4.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
