@@ -1,10 +1,19 @@
 'use strict';
 
+const sendResponse = require('../shared/sendResponse');
+const { NotUniqueError } = require('../shared/errors');
+
 module.exports = function(authService) {
     async function POST(req, res, next) {
         try {
-            res.send(await authService.createUser(req.body.username, req.body.password, req.body.email));
+            sendResponse(await authService.createUser(req.body.username, req.body.password, req.body.email), res, next);
         } catch(e) {
+            if(e instanceof NotUniqueError) {
+                return next({
+                    status: 409,
+                    error: e.message
+                });
+            }
             next(e);
         }
     }

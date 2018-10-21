@@ -2,7 +2,7 @@
 
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const InvalidCredentialsError = require('../shared/InvalidCredentialsError');
+const { InvalidCredentialsError, NotUniqueError } = require('../shared/errors');
 const { queryOne } = require('../shared/db');
 
 module.exports = {
@@ -45,8 +45,16 @@ module.exports = {
             },
             returning: ['id']
         };
-        const result = await queryOne(query);
+        let result;
+        try {
+            result = await queryOne(query);
+        } catch(e) {
+            if(e.code === '23505') {
+                throw new NotUniqueError(e.detail);
+            }
+            throw e;
+        }
         const token = jwt.sign({userId: result.id, type: 'login' }, process.env.TOKEN_SECRET, { expiresIn: '1d' });
         return { token }
     }
-}
+};

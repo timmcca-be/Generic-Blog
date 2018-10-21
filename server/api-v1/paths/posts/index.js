@@ -1,9 +1,11 @@
 'use strict';
 
+const sendResponse = require('../../shared/sendResponse');
+
 module.exports = function(postsService) {
     async function GET(req, res, next) {
         try {
-            res.send(await postsService.getSummariesPaginated(req.query.start, req.query.limit));
+            sendResponse(await postsService.getSummariesPaginated(req.query.start, req.query.limit), res, next);
         } catch(e) {
             next(e);
         }
@@ -11,7 +13,7 @@ module.exports = function(postsService) {
 
     async function POST(req, res, next) {
         try {
-            res.send(await postsService.createPost(req.body.title, req.body.content, req.auth.userId));
+            sendResponse(await postsService.createPost(req.body.title, req.body.content, req.auth.userId), res, next);
         } catch(e) {
             next(e);
         }
@@ -57,7 +59,7 @@ module.exports = function(postsService) {
         security:
           - Bearer: []
         parameters:
-          - name: body
+          - name: post
             in: body
             description: The post to create
             required: true
@@ -67,8 +69,12 @@ module.exports = function(postsService) {
           "200":
             description: Success
             schema:
-              type: integer
-              minimum: 1
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                  minimum: 1
           "400":
             $ref: "#/responses/InvalidRequest"
           default:

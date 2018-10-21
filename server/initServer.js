@@ -15,13 +15,25 @@ module.exports = async (app) => {
             authService: require('./api-v1/services/authService')
         },
         errorMiddleware: function(err, req, res, next) {
+            const internalServerError = { error: 'Internal server error' };
             if(err.status) {
                 const status = err.status;
                 delete err.status;
+                if(res.validateResponse) {
+                    const validationError = res.validateResponse(status, err)
+                    if(validationError) {
+                        console.log(JSON.stringify(validationError, null, 2));
+                        return res.status(500).send(internalServerError);
+                    }
+                }
                 return res.status(status).send(err);
             }
-            console.log(err);
-            return res.status(500).send({ error: 'Internal server error' });
+            if(err instanceof Error) {
+                console.log(err);
+            } else {
+                console.log(JSON.stringify(err));
+            }
+            return res.status(500).send(internalServerError);
         },
         paths: path.resolve(__dirname, './api-v1/paths'),
         securityHandlers: {
@@ -61,4 +73,4 @@ module.exports = async (app) => {
     });
     
     return apiDoc;
-}
+};

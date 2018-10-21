@@ -43,7 +43,8 @@ The main OpenAPI configuration file is `server/api-v1/api-doc.yml`. Individual
 routes are defined in their respective JavaScript files under `server/api-v1`.
 See [`express-openapi`](https://www.npmjs.com/package/express-openapi) for more
 details on this. A complete JSON specification of this server can be generated
-by running `npm run generate-docs`, and is saved as `api-docs/v1.json`.
+by running `npm run generate-docs`, and is saved as `api-docs/v1.json`. All
+tests can be executed by running `npm test`.
 
 ## Design
 
@@ -67,8 +68,6 @@ rather than sacrificing the clarity of the code.
 
 ## Future Goals
 
-- Create a collection of automated tests to run after each change before
-committing
 - Create and implement a front-end using React and Bootstrap
 - Implement a database migration solution so that the database can be changed
 without having to be recreated

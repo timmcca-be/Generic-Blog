@@ -1,9 +1,10 @@
 'use strict';
 
+const sendResponse = require('../../shared/sendResponse');
+
 module.exports = function(postsService) {
     async function GET(req, res, next) {
         try {
-            console.log(req.params.id);
             const post = await postsService.getPost(req.params.id);
             if(!post) {
                 throw {
@@ -11,7 +12,7 @@ module.exports = function(postsService) {
                     error: "Post not found"
                 };
             }
-            res.send(post);
+            sendResponse(post, res, next);
         } catch(e) {
             next(e);
         }

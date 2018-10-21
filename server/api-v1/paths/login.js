@@ -1,11 +1,12 @@
 'use strict';
 
-const InvalidCredentialsError = require('../shared/InvalidCredentialsError');
+const sendResponse = require('../shared/sendResponse');
+const { InvalidCredentialsError } = require('../shared/errors');
 
 module.exports = function(authService) {
     async function POST(req, res, next) {
         try {
-            res.send(await authService.login(req.body.username, req.body.password));
+            sendResponse(await authService.login(req.body.username, req.body.password), res, next);
         } catch(e) {
             if(e instanceof InvalidCredentialsError) {
                 return next({

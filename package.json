@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/app.js",
     "dev": "./node_modules/.bin/nodemon server/app.js",
-    "generate-docs": "node server/generateDocs.js"
+    "generate-docs": "node server/generateDocs.js",
+    "test": "node server/runTests.js"
   },
   "author": "Tim McCabe",
   "dependencies": {
@@ -18,6 +19,7 @@
     "morgan": "^1.9.1",
     "pg": "^7.5.0",
     "pg-format": "^1.0.4",
+    "swagger-client": "^3.8.21",
     "swagger-ui-express": "^4.0.1"
   },
   "devDependencies": {
