@@ -4,7 +4,7 @@
   "description": "A generic blog server written in NodeJS with OpenAPI documentation",
   "scripts": {
     "start": "node dist/app.min.js",
-    "start:dev": "nodemon --exec \"node debug/app.min.js\"",
+    "start:dev": "nodemon ./debug/app.min.js",
     "build": "webpack --config webpack.prod.config.js",
     "build:dev": "webpack --config webpack.dev.config.js",
     "watch": "webpack --config webpack.dev.config.js --watch",
