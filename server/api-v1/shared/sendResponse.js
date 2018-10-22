@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (response, res, next) => {
     const validationError = res.validateResponse(200, response);
     if(validationError) {

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     name: 'Log into the new account created at the start of this test sequence',
     auth: true,
