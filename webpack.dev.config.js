@@ -21,7 +21,6 @@ module.exports = {
             raw: true,
             entryOnly: false
         }),
-        new webpack.SourceMapDevToolPlugin({}),
-        new NodemonPlugin(),
+        new NodemonPlugin()
     ]
 };
