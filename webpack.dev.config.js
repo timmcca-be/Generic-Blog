@@ -10,6 +10,5 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './debug'),
         filename: 'app.min.js'
-    },
-    watch: true
+    }
 }
