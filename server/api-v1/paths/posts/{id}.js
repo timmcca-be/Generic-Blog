@@ -1,18 +1,17 @@
 'use strict';
 
-const sendResponse = require('../../shared/sendResponse');
-
-module.exports = function(postsService) {
+module.exports = function(postsService, dbService, validationService) {
     async function GET(req, res, next) {
         try {
-            const post = await postsService.getPost(req.params.id);
+            const post = await postsService.getPost(dbService, req.params.id);
             if(!post) {
                 throw {
                     status: 404,
                     error: "Post not found"
                 };
             }
-            sendResponse(post, res, next);
+            validationService.validate(post, res);
+            res.send(post);
         } catch(e) {
             next(e);
         }

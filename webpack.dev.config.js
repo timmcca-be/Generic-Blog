@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -20,6 +21,7 @@ module.exports = {
             raw: true,
             entryOnly: false
         }),
-        new webpack.SourceMapDevToolPlugin({})
+        new webpack.SourceMapDevToolPlugin({}),
+        new NodemonPlugin(),
     ]
 };

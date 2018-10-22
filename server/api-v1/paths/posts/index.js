@@ -1,11 +1,11 @@
 'use strict';
 
-const sendResponse = require('../../shared/sendResponse');
-
-module.exports = function(postsService) {
+module.exports = function(postsService, dbService, validationService) {
     async function GET(req, res, next) {
         try {
-            sendResponse(await postsService.getSummariesPaginated(req.query.start, req.query.limit), res, next);
+            const posts = await postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit)
+            validationService.validate(posts, res);
+            res.send(posts);
         } catch(e) {
             next(e);
         }
@@ -13,7 +13,9 @@ module.exports = function(postsService) {
 
     async function POST(req, res, next) {
         try {
-            sendResponse(await postsService.createPost(req.body.title, req.body.content, req.auth.userId), res, next);
+            const body = await postsService.createPost(dbService, req.body.title, req.body.content, req.auth.userId);
+            validationService.validate(body, res);
+            res.send(body);
         } catch(e) {
             next(e);
         }

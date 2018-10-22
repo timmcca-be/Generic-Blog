@@ -34,11 +34,9 @@ Next, run `npm install` to install all dependencies.
 ## Usage
 
 To build the production server, use `npm run build`, and to run it, use `npm run
-start`. To build the development server, use `npm run build:dev`, and to run it,
-use `npm run start:dev`. Instead of running `npm run build:dev`, you can run
-`npm run watch` and leave it running. This will rebuild the project each time it
-is edited. Since the development server uses `nodemon`, it will also be
-restarted each time it is recompiled, as long as the server is running.
+start`. To run the development server, use `npm run start:dev`. There is no need
+to build the development server, as launching it enables automatic building and
+hot reloading.
 
 By default, the server will launch on localhost:8080. All routes are documented
 and can be tested at http://localhost:8080/api/v1/docs.
@@ -47,7 +45,7 @@ The main OpenAPI configuration file is `server/api-v1/api-doc.yml`. Individual
 routes are defined in their respective JavaScript files under `server/api-v1`.
 See [`express-openapi`](https://www.npmjs.com/package/express-openapi) for more
 details on this. A complete JSON specification of this server can be accessed at
-http://localhost:8080/api/v1/api-docs. All tests can be executed by running `npm 
+http://localhost:8080/api/v1/api-docs. All tests can be executed by running `npm
 test` while the server is running.
 
 ## Design
