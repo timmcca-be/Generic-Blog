@@ -4,31 +4,23 @@ require('dotenv').config();
 
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
+const readdir = require('util').promisify(fs.readdir);
 const Swagger = require('swagger-client');
-const serverPromise = require('./app');
 
-const url = 'http://localhost:' + process.env.PORT + '/api/v1/json-docs';
-const testsPromise = new Promise(async (resolve, reject) => {
-    const fileNames = await util.promisify(fs.readdir)(path.resolve(__dirname, './tests'));
-    resolve(fileNames.map((name) => {
+const url = 'http://localhost:' + process.env.PORT + '/api/v1/api-docs';
+
+readdir(path.resolve(__dirname, './tests')).then(async (testNames) => {
+    const tests = testNames.map((name) => {
         const test = require('./tests/' + name);
         test.fileName = name;
         return test;
-    }));
-});
-
-Promise.all([serverPromise, testsPromise]).then(async (data) => {
-    const server = data[0];
-    const tests = data[1];
+    });
     try {
-        console.log();
         const client = await Swagger(url);
         // Create an account and log into it
         const username = 'test_' + Date.now();
         const password = Date.now() + '';
         const email = Date.now() + "@example.com";
-        console.log(email);
         const accountResponse = await client.apis.auth.createAccount({
             user: {
                 username,
@@ -43,7 +35,6 @@ Promise.all([serverPromise, testsPromise]).then(async (data) => {
                 return req;
             }
         });
-        console.log();
         let passed = 0;
         const failing = [];
         for(let i = 0; i < tests.length; i++) {
@@ -54,16 +45,15 @@ Promise.all([serverPromise, testsPromise]).then(async (data) => {
                 } else {
                     await test.run(client, username, password, email);
                 }
-                console.log('\n' + test.name + ' - passed\n');
+                console.log(test.name + ' - passed');
                 passed++;
-            } catch(e) {
-                console.log('\n' + test.name + ' - error:');
-                if(e instanceof Error) {
-                    console.log(e);
+            } catch(err) {
+                console.log(test.name + ' - error:');
+                if(err instanceof Error) {
+                    console.log(err);
                 } else {
-                    console.log(JSON.stringify(e));
+                    console.log(JSON.stringify(err));
                 }
-                console.log();
                 failing.push(test.name + ' (' + test.fileName + ')');
             }
         }
@@ -74,12 +64,9 @@ Promise.all([serverPromise, testsPromise]).then(async (data) => {
                 console.log(name);
             });
         }
-    } catch(e) {
-        console.log(e);
+    } catch(err) {
+        console.log(err);
     }
-    server.close(() => {
-        process.exit();
-    });
-}).catch((e) => {
-    console.log(e)
+}).catch((err) => {
+    console.log(err)
 });

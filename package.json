@@ -2,11 +2,12 @@
   "name": "generic-blog",
   "version": "0.1.0",
   "description": "A generic blog server written in NodeJS with OpenAPI documentation",
-  "main": "app.js",
   "scripts": {
-    "start": "node server/app.js",
-    "dev": "./node_modules/.bin/nodemon server/app.js",
-    "generate-docs": "node server/generateDocs.js",
+    "start": "node dist/app.min.js",
+    "start:dev": "nodemon --exec \"node debug/app.min.js\"",
+    "build": "webpack --config webpack.prod.config.js",
+    "build:dev": "webpack --config webpack.dev.config.js",
+    "watch": "webpack --config webpack.dev.config.js --watch",
     "test": "node server/runTests.js"
   },
   "author": "Tim McCabe",
@@ -23,6 +24,11 @@
     "swagger-ui-express": "^4.0.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "file-loader": "^2.0.0",
+    "nodemon": "^1.18.4",
+    "webpack": "^4.22.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-closure-compiler": "^2.1.6",
+    "webpack-node-externals": "^1.7.2"
   }
 }

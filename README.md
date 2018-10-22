@@ -33,18 +33,22 @@ Next, run `npm install` to install all dependencies.
 
 ## Usage
 
-Run `npm run dev` to start the development server or `npm start` to start the
-production server. By default, it will launch on localhost:8080. All routes are
-documented and can be tested at http://localhost:8080/api/v1/docs. If you are
-running a production server, be sure to uncomment `NODE_ENV=production` in
-`.env`.
+To build the production server, use `npm run build`, and to run it, use `npm run
+start`. To build the development server, use `npm run build:dev`, and to run it,
+use `npm run start:dev`. Instead of running `npm run build:dev`, you can run
+`npm run watch` and leave it running. This will rebuild the project each time it
+is edited. Since the development server uses `nodemon`, it will also be
+restarted each time it is recompiled, as long as the server is running.
+
+By default, the server will launch on localhost:8080. All routes are documented
+and can be tested at http://localhost:8080/api/v1/docs.
 
 The main OpenAPI configuration file is `server/api-v1/api-doc.yml`. Individual
 routes are defined in their respective JavaScript files under `server/api-v1`.
 See [`express-openapi`](https://www.npmjs.com/package/express-openapi) for more
-details on this. A complete JSON specification of this server can be generated
-by running `npm run generate-docs`, and is saved as `api-docs/v1.json`. All
-tests can be executed by running `npm test`.
+details on this. A complete JSON specification of this server can be accessed at
+http://localhost:8080/api/v1/api-docs. All tests can be executed by running `npm 
+test` while the server is running.
 
 ## Design
 
@@ -62,9 +66,7 @@ require modifications in two different locations to make a single change.
 Keeping the documentation coupled with the routes means that everything related
 to a route is defined in the same location. This has the added benefit of making
 the code much easier to read, as the OpenAPI documentation also effective serves
-as a comment. Of course, a single specification file independent of the
-implementation is vital for users of the API, but this can be easily generated,
-rather than sacrificing the clarity of the code.
+as a comment.
 
 ## Future Goals
 
@@ -72,9 +74,8 @@ rather than sacrificing the clarity of the code.
 - Implement a database migration solution so that the database can be changed
 without having to be recreated
 - Add search functionality and the ability to sort posts based on popularity
-- Use [`webpack`](https://www.npmjs.com/package/webpack) to create a build
-process for the production server that generates optimized, minified code
 - Use [`nodemailer`](https://www.npmjs.com/package/nodemailer) to implement
 token-based account activation and password reset using the React front-end
 - Add comments to posts, and create user profile pages with more detailed
 information about users
+- Implement proper logging with importance levels

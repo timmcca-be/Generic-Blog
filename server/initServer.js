@@ -1,15 +1,32 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const readFile = require('util').promisify(fs.readFile);
 const { initialize } = require('express-openapi');
+
+const context = require.context('./api-v1/paths', true, /\.js$/);
 
 module.exports = async (app) => {
     const apiDoc = initialize({
         app,
-        apiDoc: await readFile(path.resolve(__dirname, './api-v1/api-doc.yml'), 'utf8'),
+        apiDoc: require('./api-v1/api-doc.js'),
+        paths: context.keys().map((key) => {
+            // the key is formatted as './*path*.js'
+            // this removes the leading '.' and the ending '.js'
+            let path = key.substring(1, key.length - 3);
+            if(path === '/index') {
+                // ./api-v1/paths/index.js points to /
+                path = '/';
+            } else if(path.substring(path.length - 6) === '/index') {
+                // ./api-v1/paths/*something*/index.js points to /*something*
+                path = path.substring(0, path.length - 6);
+            }
+            return {
+                path,
+                // load the module from webpack context
+                module: context(key)
+            }
+        }),
         dependencies: {
             postsService: require('./api-v1/services/postsService'),
             authService: require('./api-v1/services/authService')
@@ -35,7 +52,6 @@ module.exports = async (app) => {
             }
             return res.status(500).send(internalServerError);
         },
-        paths: path.resolve(__dirname, './api-v1/paths'),
         securityHandlers: {
             Bearer: (req, scopes, definition) => {
                 const error = {
@@ -49,11 +65,11 @@ module.exports = async (app) => {
                 let decoded;
                 try {
                     decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-                } catch(e) {
-                    if(e instanceof jwt.JsonWebTokenError) {
+                } catch(err) {
+                    if(err instanceof jwt.JsonWebTokenError) {
                         throw error;
                     }
-                    throw e;
+                    throw err;
                 }
                 if(decoded.type !== 'login') {
                     throw error;
@@ -63,14 +79,6 @@ module.exports = async (app) => {
             }
         }
     }).apiDoc;
-
-    // remove trailing slashes on routes using the *route name*/index.js file structure
-    Object.keys(apiDoc.paths).sort().forEach((key) => {
-        const content = apiDoc.paths[key];
-        delete apiDoc.paths[key];
-        const newKey = key[key.length - 1] === '/' ? key.substring(0, key.length - 1) : key;
-        apiDoc.paths[newKey] = content;
-    });
     
     return apiDoc;
 };

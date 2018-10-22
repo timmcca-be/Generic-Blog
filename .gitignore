@@ -1,3 +1,4 @@
 .env
-api-docs
+debug
+dist
 node_modules
