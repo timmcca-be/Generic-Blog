@@ -11,6 +11,15 @@ module.exports = {
     entry: './server/app.js',
     output: {
         path: path.resolve(__dirname, './debug'),
-        filename: 'app.min.js'
-    }
+        filename: 'app.min.js',
+        devtoolModuleFilenameTemplate: '[absolute-resource-path]'
+    },
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: 'require("source-map-support").install();',
+            raw: true,
+            entryOnly: false
+        }),
+        new webpack.SourceMapDevToolPlugin({})
+    ]
 };

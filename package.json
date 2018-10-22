@@ -20,6 +20,7 @@
     "morgan": "^1.9.1",
     "pg": "^7.5.0",
     "pg-format": "^1.0.4",
+    "source-map-support": "^0.5.9",
     "swagger-client": "^3.8.21",
     "swagger-ui-express": "^4.0.1"
   },
