@@ -2,22 +2,20 @@
 
 const { NotUniqueError } = require('../shared/errors');
 
-module.exports = function(authService, dbService, validationService) {
-    async function POST(req, res, next) {
+module.exports = (authService, dbService, responseService) => {
+    const POST = responseService.respond(async (req) => {
         try {
-            const body = await authService.createUser(dbService, req.body.username, req.body.password, req.body.email);
-            validationService.validate(body, res);
-            res.send(body);
-        } catch(e) {
-            if(e instanceof NotUniqueError) {
-                return next({
+            return await authService.createUser(dbService, req.body.username, req.body.password, req.body.email);
+        } catch(err) {
+            if(err instanceof NotUniqueError) {
+                throw {
                     status: 409,
                     error: e.message
-                });
+                };
             }
-            next(e);
+            throw err;
         }
-    }
+    });
 
     POST.apiDoc = `
         description: Create an account and get a login token for the new account

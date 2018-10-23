@@ -1,24 +1,21 @@
 'use strict';
 
-const validationService = require('./api-v1/services/validationService');
-
 module.exports = (err, req, res, next) => {
-    const internalServerError = { error: 'Internal server error' };
-    if(err.status) {
-        const status = err.status;
-        delete err.status;
-        try {
-            validationService.validate(err, res, status);
-            return res.status(status).send(err);
-        } catch(err) {
-            console.log(JSON.stringify(err, null, 2));
-            return res.status(500).send(internalServerError);
-        }
+    const serverError = () => res.status(500).send({ error: 'Internal server error' });
+    if(!err.status) {
+        console.log('Error:');
+        console.log(err instanceof Error ? err : JSON.stringify(err, null, 2));
+        return serverError();
     }
-    if(err instanceof Error) {
-        console.log(err);
-    } else {
-        console.log(JSON.stringify(err));
+    const code = err.status;
+    delete err.status;
+    const validationError = res.validateResponse(code, err);
+    if(validationError) {
+        console.log('Failing response (status: ' + code + '):');
+        console.log(JSON.stringify(err, null, 2));
+        console.log('Error:');
+        console.log(JSON.stringify(validationError, null, 2));
+        return serverError();
     }
-    return res.status(500).send(internalServerError);
+    res.status(code).send(err);
 }

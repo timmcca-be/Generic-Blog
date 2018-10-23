@@ -1,21 +1,16 @@
 'use strict';
 
-module.exports = function(postsService, dbService, validationService) {
-    async function GET(req, res, next) {
-        try {
-            const post = await postsService.getPost(dbService, req.params.id);
-            if(!post) {
-                throw {
-                    status: 404,
-                    error: "Post not found"
-                };
-            }
-            validationService.validate(post, res);
-            res.send(post);
-        } catch(e) {
-            next(e);
+module.exports = (postsService, dbService, responseService) => {
+    const GET = responseService.respond(async (req) => {
+        const post = await postsService.getPost(dbService, req.params.id);
+        if(!post) {
+            throw {
+                status: 404,
+                error: "Post not found"
+            };
         }
-    }
+        return post;
+    });
 
     GET.apiDoc = `
         description: Get the specified post

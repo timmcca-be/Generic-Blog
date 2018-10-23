@@ -1,25 +1,9 @@
 'use strict';
 
-module.exports = function(postsService, dbService, validationService) {
-    async function GET(req, res, next) {
-        try {
-            const posts = await postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit)
-            validationService.validate(posts, res);
-            res.send(posts);
-        } catch(e) {
-            next(e);
-        }
-    }
-
-    async function POST(req, res, next) {
-        try {
-            const body = await postsService.createPost(dbService, req.body.title, req.body.content, req.auth.userId);
-            validationService.validate(body, res);
-            res.send(body);
-        } catch(e) {
-            next(e);
-        }
-    }
+module.exports = (postsService, dbService, responseService) => {
+    const GET = responseService.respond((req) => postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit));
+    
+    const POST = responseService.respond((req) => postsService.createPost(dbService, req.body.title, req.body.content, req.auth.userId));
 
     GET.apiDoc = `
         description: Get summaries of posts

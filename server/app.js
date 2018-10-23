@@ -3,7 +3,6 @@
 require('dotenv').config();
 
 const path = require('path');
-const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');

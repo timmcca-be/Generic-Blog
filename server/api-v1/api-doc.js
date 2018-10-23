@@ -1,12 +1,20 @@
 'use strict';
 
+let host = 'localhost:' + process.env.PORT;
+if(process.env.NODE_ENV === 'production') {
+    host = process.env.PRODUCTION_HOSTNAME;
+    if(process.env.PRODUCTION_HOSTNAME_APPEND_PORT === 'true') {
+        host += ':' + process.env.PORT;
+    }
+}
+
 module.exports = {
   "swagger": "2.0",
   "info": {
     "version": "0.1.0",
     "title": "Generic Blog Server"
   },
-  "host": "localhost:" + process.env.PORT,
+  "host": host,
   "basePath": "/api/v1",
   "schemes": [
     "http",
