@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const { initialize } = require('express-openapi');
-const app = require('express')();
+const express = require('express');
+const app = express();
 
 const dbService = require('./api-v1/services/dbService');
 
@@ -56,6 +57,8 @@ const apiDoc = initialize({
 }).apiDoc;
 
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
+
+app.use(express.static('public'));
 
 dbService.initDB().then((client) => {
     app.listen(process.env.PORT, function() {

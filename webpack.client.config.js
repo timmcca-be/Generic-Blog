@@ -1,12 +1,20 @@
+'use strict';
+
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const buildPath = path.resolve(__dirname, './public');
 
 module.exports = {
     mode: 'production',
-    entry: './client/index.js',
+    entry: {
+        client: './client/index.js'
+    },
     output: {
-        path: path.resolve(__dirname, './dist-client'),
-        filename: 'index.min.js'
+        path: buildPath,
+        filename: 'index.min.js',
+        chunkFilename: '[name].bundle.js',
     },
     module: {
         rules: [
@@ -27,8 +35,15 @@ module.exports = {
         }
     },
     plugins: [
+        new CleanWebpackPlugin([buildPath]),
         new HtmlWebpackPlugin({
-            template: './public/index.html'
+            template: './client/index.html',
+            filename: 'index.html'
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
 };
