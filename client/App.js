@@ -1,5 +1,5 @@
 import React from 'react';
-import apiClient from './apiClient';
+import Sdk from '../sdk.js';
 
 class App extends React.Component {
     constructor(props) {
@@ -7,15 +7,13 @@ class App extends React.Component {
         this.state = {
             posts: []
         };
-        apiClient.then(async (client) => {
-            console.log(client.apis.posts);
-            const summaries = await client.apis.posts.getPostSummaries({});
+        new Sdk('/api/v1').getPostSummaries().then((summaries) => {
             this.setState({
-                posts: summaries.body.rows
+                posts: summaries.rows
             });
         });
     }
-    
+
     render() {
         return (
             <p>{JSON.stringify(this.state.posts)}</p>

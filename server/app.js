@@ -6,10 +6,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
-const { initialize } = require('express-openapi');
 const express = require('express');
 const app = express();
 
+const initServer = require('./initServer');
 const dbService = require('./api-v1/services/dbService');
 
 app.use(bodyParser.json());
@@ -45,16 +45,7 @@ serviceContext.keys().forEach((key) => {
     services[serviceName] = serviceContext(key);
 });
 
-const apiDoc = initialize({
-    app,
-    apiDoc: require('./api-v1/api-doc.js'),
-    paths,
-    dependencies: services,
-    errorMiddleware: require('./errorMiddleware'),
-    securityHandlers: {
-        Bearer: require('./bearerAuth')
-    }
-}).apiDoc;
+const apiDoc = initServer(app, paths, services);
 
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 

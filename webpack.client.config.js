@@ -19,6 +19,12 @@ module.exports = {
     module: {
         rules: [
             {
+                test: require.resolve('./sdk.js'),
+                use: {
+                    loader: 'val-loader'
+                }
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
