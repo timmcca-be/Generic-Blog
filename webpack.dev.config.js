@@ -25,6 +25,6 @@ module.exports = {
             entryOnly: false
         }),
         new NodemonPlugin(),
-        new WebpackShellPlugin({onBuildEnd:['webpack-dev-server --config webpack.client.config.js']})
+        new WebpackShellPlugin({onBuildEnd:['webpack-dev-server --config webpack.client.config.js --hot']})
     ]
 };

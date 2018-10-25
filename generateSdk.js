@@ -23,9 +23,15 @@ fs.readdirSync(path.resolve(__dirname, './server/api-v1/services')).forEach((nam
 });
 
 const apiDoc = initServer(app, paths, services);
-const code = CodeGen.getReactCode({
+const code = CodeGen.getCustomCode({
     className: 'Sdk',
-    swagger: apiDoc
-}).replace("exports.Sdk = Sdk;", "export default new Sdk('/api/v1');");
+    swagger: apiDoc,
+    template: {
+        class: fs.readFileSync(path.resolve(__dirname, './templates/class.mustache'), 'utf8'),
+        method: fs.readFileSync(path.resolve(__dirname, './templates/method.mustache'), 'utf8')
+    },
+    lint: false,
+    beautify: false
+});
 
 module.exports = () => { return { code }; }

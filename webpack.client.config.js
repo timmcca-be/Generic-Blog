@@ -52,7 +52,7 @@ module.exports = {
         }),
         new ExtraWatchWebpackPlugin({
             files: [ './debug/app.min.js' ],
-        }),
+        })
     ],
     optimization: {
         splitChunks: {

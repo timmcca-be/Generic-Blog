@@ -1,5 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { h, render } from 'preact';
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+if(module.hot) {
+    import('preact/devtools');
+}
+
+render(<App />, document.getElementById('root'));
