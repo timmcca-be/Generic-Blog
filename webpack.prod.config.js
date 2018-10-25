@@ -3,7 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ClosureCompilerPlugin = require('webpack-closure-compiler');
 
 const buildPath = path.resolve(__dirname, './dist');
@@ -19,7 +18,6 @@ module.exports = {
         devtoolModuleFilenameTemplate: '[absolute-resource-path]'
     },
     plugins: [
-        new CleanWebpackPlugin([buildPath]),
         new webpack.BannerPlugin({
             banner: 'require("source-map-support").install();',
             raw: true,

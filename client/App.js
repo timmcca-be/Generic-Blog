@@ -1,5 +1,5 @@
 import React from 'react';
-import Sdk from '../sdk.js';
+import sdk from 'sdk';
 
 class App extends React.Component {
     constructor(props) {
@@ -7,7 +7,7 @@ class App extends React.Component {
         this.state = {
             posts: []
         };
-        new Sdk('/api/v1').getPostSummaries().then((summaries) => {
+        sdk.getPostSummaries({charLimit: 60}).then((summaries) => {
             this.setState({
                 posts: summaries.rows
             });
@@ -15,9 +15,15 @@ class App extends React.Component {
     }
 
     render() {
-        return (
-            <p>{JSON.stringify(this.state.posts)}</p>
-        );
+        return this.state.posts.map((post, i) => {
+            return (
+                <div key={i}>
+                    <h3>{post.title}</h3>
+                    <p>{post.content + (post.content.length < post.content_length ? '...' : '')}</p>
+                    <small>{post.author}</small>
+                </div>
+            );
+        });
     }
 }
 

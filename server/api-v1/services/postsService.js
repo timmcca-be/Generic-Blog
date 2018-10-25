@@ -30,7 +30,7 @@ function getPost(dbService, id) {
     return dbService.queryOne(query);
 }
 
-function getSummariesPaginated(dbService, start, limit) {
+function getSummariesPaginated(dbService, start, limit, charLimit) {
     const subQuery = {
         select: {
             table: 'posts',
@@ -58,7 +58,29 @@ function getSummariesPaginated(dbService, start, limit) {
         join: { users: { on: { 'users.id': 'PaginatedPosts.user_id' } } },
         fields: [
             'PaginatedPosts.title',
-            'PaginatedPosts.content',
+            {
+                expression: {
+                    pattern: 'left({column}, {charLimit})',
+                    values: {
+                        column: {
+                            field: 'PaginatedPosts.content'
+                        },
+                        charLimit
+                    }
+                },
+                alias: 'content'
+            },
+            {
+                expression: {
+                    pattern: 'length({column})',
+                    values: {
+                        column: {
+                            field: 'PaginatedPosts.content'
+                        }
+                    }
+                },
+                alias: 'content_length'
+            },
             'PaginatedPosts.user_id',
             {
                 table: 'users',

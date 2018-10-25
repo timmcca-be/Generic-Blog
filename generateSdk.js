@@ -26,6 +26,6 @@ const apiDoc = initServer(app, paths, services);
 const code = CodeGen.getReactCode({
     className: 'Sdk',
     swagger: apiDoc
-}).replace("exports.Sdk = Sdk;", "export default Sdk;");
+}).replace("exports.Sdk = Sdk;", "export default new Sdk('/api/v1');");
 
 module.exports = () => { return { code }; }

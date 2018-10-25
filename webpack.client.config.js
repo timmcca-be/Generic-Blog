@@ -1,8 +1,8 @@
 'use strict';
 
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
 const buildPath = path.resolve(__dirname, './public');
 
@@ -19,7 +19,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: require.resolve('./sdk.js'),
+                test: require.resolve('./generateSdk.js'),
                 use: {
                     loader: 'val-loader'
                 }
@@ -33,6 +33,11 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        alias: {
+            sdk$: path.resolve(__dirname, './generateSdk.js')
+        }
+    },
     devServer: {
         port: 3000,
         open: true,
@@ -41,11 +46,13 @@ module.exports = {
         }
     },
     plugins: [
-        new CleanWebpackPlugin([buildPath]),
         new HtmlWebpackPlugin({
             template: './client/index.html',
             filename: 'index.html'
-        })
+        }),
+        new ExtraWatchWebpackPlugin({
+            files: [ './debug/app.min.js' ],
+        }),
     ],
     optimization: {
         splitChunks: {

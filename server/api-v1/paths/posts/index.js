@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = (postsService, dbService, responseService) => {
-    const GET = responseService.respond((req) => postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit));
-    
+    const GET = responseService.respond((req) => postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit, req.query.charLimit));
+
     const POST = responseService.respond((req) => postsService.createPost(dbService, req.body.title, req.body.content, req.auth.userId));
 
     GET.apiDoc = `
@@ -26,6 +26,13 @@ module.exports = (postsService, dbService, responseService) => {
             minimum: 1
             maximum: 100
             default: 20
+          - name: charLimit
+            in: query
+            description: The number of characters of the post to get
+            required: false
+            type: integer
+            minimum: 1
+            default: 200
         responses:
           "200":
             description: Success

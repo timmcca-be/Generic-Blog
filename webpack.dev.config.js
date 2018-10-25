@@ -3,8 +3,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NodemonPlugin = require('nodemon-webpack-plugin');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 const buildPath = path.resolve(__dirname, './debug');
 
@@ -19,12 +19,12 @@ module.exports = {
         devtoolModuleFilenameTemplate: '[absolute-resource-path]'
     },
     plugins: [
-        new CleanWebpackPlugin([buildPath]),
         new webpack.BannerPlugin({
             banner: 'require("source-map-support").install();',
             raw: true,
             entryOnly: false
         }),
-        new NodemonPlugin()
+        new NodemonPlugin(),
+        new WebpackShellPlugin({onBuildEnd:['webpack-dev-server --config webpack.client.config.js']})
     ]
 };
