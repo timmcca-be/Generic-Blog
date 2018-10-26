@@ -29,9 +29,9 @@ const code = CodeGen.getCustomCode({
     template: {
         class: fs.readFileSync(path.resolve(__dirname, './templates/class.mustache'), 'utf8'),
         method: fs.readFileSync(path.resolve(__dirname, './templates/method.mustache'), 'utf8')
-    },
-    lint: false,
-    beautify: false
+    }
 });
+
+console.log(code);
 
 module.exports = () => { return { code }; }

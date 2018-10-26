@@ -39,7 +39,9 @@ to build the development server, as launching it enables automatic building and
 hot reloading.
 
 By default, the server will launch on localhost:8080. All routes are documented
-and can be tested at http://localhost:8080/api/v1/docs.
+and can be tested at http://localhost:8080/api/v1/docs. On the production
+server, the user interface runs on port 8080; on the development server, it runs
+on port 3000 and can be accessed at http://localhost:3000.
 
 The main OpenAPI configuration file is `server/api-v1/api-doc.yml`. Individual
 routes are defined in their respective JavaScript files under `server/api-v1`.

@@ -18,6 +18,7 @@ limitations under the License.
 */
 
 /*jshint esversion: 6 */
+/*global fetch, btoa */
 /**
  * {{&description}}
  * @class {{&className}}
@@ -80,7 +81,7 @@ let {{&className}} = (function(){
       * @param {object} queryParameters - querystring parameters
       * @param {object} form - form data object
       */
-    {{&className}}.prototype.request = async function(method, url, parameters, body, headers, queryParameters, form){
+    {{&className}}.prototype.request = function(method, url, parameters, body, headers, queryParameters, form){
         const queryParams = queryParameters && Object.keys(queryParameters).length ? serializeQueryParams(queryParameters) : null ;
         const urlWithParams = url + (queryParams ? '?' + queryParams : '');
 
@@ -88,13 +89,13 @@ let {{&className}} = (function(){
             body = undefined;
         }
 
-        const response = await fetch(urlWithParams, {
+        return fetch(urlWithParams, {
             method,
             headers,
             body: JSON.stringify(body)
-        })
-        return response.json();
-
+        }).then((response) => {
+            return response.json();
+        });
     };
 
     {{#isSecure}}

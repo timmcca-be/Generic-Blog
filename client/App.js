@@ -1,5 +1,7 @@
 import { h, Component } from 'preact';
 import Sdk from 'sdk';
+import styles from './App.css';
+import Card from './Card.js';
 
 class App extends Component {
     constructor(props) {
@@ -16,17 +18,11 @@ class App extends Component {
 
     render() {
         return (
-            <div>{
-                this.state.posts.map((post, i) => {
-                    return (
-                        <div key={i}>
-                            <h3>{post.title}</h3>
-                            <p>{post.content + (post.content.length < post.content_length ? '...' : '')}</p>
-                            <small>{post.author}</small>
-                        </div>
-                    );
-                })
-            }</div>
+            <div className={styles.container}>
+                {
+                    this.state.posts.map((post, i) => <Card {...post} key={i} />)
+                }
+            </div>
         )
     }
 }

@@ -1,0 +1,6 @@
+.container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: calc((100% - 40px) / 3) calc((100% - 40px) / 3) calc((100% - 40px) / 3);
+    width: 100%;
+}

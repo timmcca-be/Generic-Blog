@@ -1,0 +1,6 @@
+.card {
+    box-shadow: 0 0 5px lightgray;
+    display: inline-block;
+    padding: 15px 20px 20px 20px;
+    word-wrap: break-word;
+}
