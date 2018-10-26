@@ -32,6 +32,4 @@ const code = CodeGen.getCustomCode({
     }
 });
 
-console.log(code);
-
 module.exports = () => { return { code }; }
