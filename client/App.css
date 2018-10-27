@@ -1,6 +1,6 @@
 .container {
     margin: auto;
-    padding-top: 200px;
+    padding-top: 340px;
     width: 732px;
 }
 .top {
@@ -11,9 +11,8 @@
     transition: all ease 0.2s;
 }
 .bigTop {
-    padding: 27px calc(50% - 440px);
+    padding: 100px calc(50% - 440px);
     width: 880px;
-    padding-bottom: 45px;
 }
 .miniTop {
     width: 780px;

@@ -24,7 +24,7 @@ class App extends Component {
     
     handleScroll() {
         this.setState({
-            miniTopBar: window.pageYOffset > 50
+            miniTopBar: window.pageYOffset > 120
         });
     }
 
