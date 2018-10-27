@@ -161,24 +161,6 @@ module.exports = {
         }
       ]
     },
-    "PostSummary": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/Post"
-        },
-        {
-          "required": [
-            "content_length"
-          ],
-          "properties": {
-            "content_length": {
-              "type": "integer",
-              "minimum": 1
-            }
-          }
-        }
-      ]
-    },
     "Posts": {
       "required": [
         "rows"
@@ -187,7 +169,7 @@ module.exports = {
         "rows": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PostSummary"
+            "$ref": "#/definitions/Post"
           }
         }
       }

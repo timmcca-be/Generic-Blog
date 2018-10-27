@@ -93,7 +93,7 @@ let {{&className}} = (function(){
             method,
             headers,
             body: JSON.stringify(body)
-        }).then((response) => {
+        }).then(response => {
             return response.json();
         });
     };

@@ -1,6 +1,51 @@
 .card {
-    box-shadow: 0 0 5px lightgray;
-    display: inline-block;
-    padding: 15px 20px 20px 20px;
+    border-radius: 30px / 25px;
+    padding: 35px 102px 31px 102px;
+    margin: 0;
+    margin-bottom: 44px;
+    background-color: white;
+    box-shadow: 2px 3.5px 10px rgba(18, 113, 133, 0.2);
+}
+.card:hover {
+    box-shadow: 0 0 10px rgba(230, 251, 249, 0.7);
+    transition: box-shadow 0.1s;
+}
+.title {
+    font-family: Rockwell, "Times New Roman", serif;
+    font-size: 26pt;
+    color: #1d5967;
+    margin: 0;
+    margin-bottom: 18px;
     word-wrap: break-word;
+}
+.content {
+    font-family: Helvetica, "Nimbus Sans", sans;
+    font-size: 14pt;
+    margin: 0;
+    color: #333;
+    word-wrap: break-word;
+    text-align: justify;
+    line-height: 36px;
+    margin-bottom: 16px;
+    position: relative;
+    max-height: 108px;
+    overflow: hidden;
+}
+.content::after {
+    width: 100%;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    content: "";
+    height: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 54px;
+}
+.author {
+    font-family: Helvetica, "Nimbus Sans", sans;
+    font-size: 12pt;
+    margin: 0;
+    color: #4d95a4;
+    width: 100%;
+    text-align: right;
 }

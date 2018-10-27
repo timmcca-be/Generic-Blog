@@ -9,13 +9,15 @@ module.exports = (err, req, res, next) => {
     }
     const code = err.status;
     delete err.status;
-    const validationError = res.validateResponse(code, err);
-    if(validationError) {
-        console.log('Failing response (status: ' + code + '):');
-        console.log(JSON.stringify(err, null, 2));
-        console.log('Error:');
-        console.log(JSON.stringify(validationError, null, 2));
-        return serverError();
+    if(res.validateResponse) {
+        const validationError = res.validateResponse(code, err);
+        if(validationError) {
+            console.log('Failing response (status: ' + code + '):');
+            console.log(JSON.stringify(err, null, 2));
+            console.log('Error:');
+            console.log(JSON.stringify(validationError, null, 2));
+            return serverError();
+        }
     }
     res.status(code).send(err);
 }

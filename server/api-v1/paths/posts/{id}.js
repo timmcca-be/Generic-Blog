@@ -1,8 +1,7 @@
 'use strict';
 
 module.exports = (postsService, dbService, responseService) => {
-    const GET = responseService.respond(async (req) => {
-        const post = await postsService.getPost(dbService, req.params.id);
+    const GET = responseService.respond(req => postsService.getPost(dbService, req.params.id).then(post => {
         if(!post) {
             throw {
                 status: 404,
@@ -10,7 +9,7 @@ module.exports = (postsService, dbService, responseService) => {
             };
         }
         return post;
-    });
+    }));
 
     GET.apiDoc = `
         description: Get the specified post

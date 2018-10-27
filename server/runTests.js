@@ -9,8 +9,8 @@ const Swagger = require('swagger-client');
 
 const url = 'http://localhost:' + process.env.PORT + '/api/v1/api-docs';
 
-readdir(path.resolve(__dirname, './tests')).then(async (testNames) => {
-    const tests = testNames.map((name) => {
+readdir(path.resolve(__dirname, './tests')).then(async testNames => {
+    const tests = testNames.map(name => {
         const test = require('./tests/' + name);
         test.fileName = name;
         return test;
@@ -30,7 +30,7 @@ readdir(path.resolve(__dirname, './tests')).then(async (testNames) => {
         });
         const token = accountResponse.body.token;
         const authClient = await Swagger(url, {
-            requestInterceptor: (req) => {
+            requestInterceptor: req => {
                 req.headers['Authorization'] = 'Bearer ' + token;
                 return req;
             }
@@ -60,13 +60,9 @@ readdir(path.resolve(__dirname, './tests')).then(async (testNames) => {
         console.log(passed + ' / ' + tests.length + ' passed');
         if(failing.length > 0) {
             console.log('Failing tests:');
-            failing.forEach((name) => {
-                console.log(name);
-            });
+            failing.forEach(console.log.bind(console));
         }
     } catch(err) {
         console.log(err);
     }
-}).catch((err) => {
-    console.log(err)
-});
+}).catch(console.log.bind(console));

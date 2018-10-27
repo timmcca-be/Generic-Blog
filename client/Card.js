@@ -5,9 +5,9 @@ import styles from './Card.css';
 function Card(props) {
     return (
         <div className={styles.card}>
-            <h3>{props.title}</h3>
-            <p>{props.content + (props.content.length < props.content_length ? '...' : '')}</p>
-            <small>{props.author}</small>
+            <p className={styles.title}>{props.title}</p>
+            <p className={styles.content}>{props.content}</p>
+            <p className={styles.author}>{props.author}</p>
         </div>
     );
 }

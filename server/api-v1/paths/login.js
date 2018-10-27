@@ -3,19 +3,15 @@
 const { InvalidCredentialsError } = require('../shared/errors');
 
 module.exports = (authService, dbService, responseService) => {
-    const POST = responseService.respond(async (req) => {
-        try {
-            return await authService.login(dbService, req.body.username, req.body.password);
-        } catch(err) {
-            if(err instanceof InvalidCredentialsError) {
-                throw {
-                    status: 401,
-                    error: e.message
-                };
-            }
-            throw err;
+    const POST = responseService.respond(req => authService.login(dbService, req.body.username, req.body.password).catch(err => {
+        if(err instanceof InvalidCredentialsError) {
+            throw {
+                status: 401,
+                error: e.message
+            };
         }
-    });
+        throw err;
+    }));
 
     POST.apiDoc = `
         description: Get a login token

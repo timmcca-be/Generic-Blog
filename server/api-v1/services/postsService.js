@@ -41,7 +41,9 @@ function getSummariesPaginated(dbService, start, limit, charLimit) {
                         pattern: '{operation} OVER (ORDER BY {column} DESC)',
                         values: {
                             operation: { func: { name: 'ROW_NUMBER' } },
-                            column: 'id'
+                            column: {
+                                field: 'id'
+                            }
                         }
                     },
                     alias: 'RowNum'
@@ -69,17 +71,6 @@ function getSummariesPaginated(dbService, start, limit, charLimit) {
                     }
                 },
                 alias: 'content'
-            },
-            {
-                expression: {
-                    pattern: 'length({column})',
-                    values: {
-                        column: {
-                            field: 'PaginatedPosts.content'
-                        }
-                    }
-                },
-                alias: 'content_length'
             },
             'PaginatedPosts.user_id',
             {

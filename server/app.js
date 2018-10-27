@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 // routes and services are dynamically loaded from filesystem through webpack
 
 const pathContext = require.context('./api-v1/paths', true, /\.js$/);
-const paths = pathContext.keys().map((key) => {
+const paths = pathContext.keys().map(key => {
     // the key is formatted as './*path*.js'
     // this removes the leading '.' and the ending '.js'
     let path = key.substring(1, key.length - 3);
@@ -38,7 +38,7 @@ const paths = pathContext.keys().map((key) => {
 
 const serviceContext = require.context('./api-v1/services', true, /\.js$/);
 const services = {};
-serviceContext.keys().forEach((key) => {
+serviceContext.keys().forEach(key => {
     const fileName = path.basename(key);
     // chop off ending '.js'
     const serviceName = fileName.substring(0, fileName.length - 3);
@@ -51,7 +51,7 @@ app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
 app.use(express.static('public'));
 
-dbService.initDB().then((client) => {
+dbService.initDB().then(client => {
     app.listen(process.env.PORT, function() {
         console.log('Listening on port ' + process.env.PORT);
     });

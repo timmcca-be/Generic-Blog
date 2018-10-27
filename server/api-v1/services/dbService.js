@@ -40,25 +40,12 @@ function getDB() {
     return db;
 }
 
-// TODO: disallow text queries once all routes use json-sql objects
-
-async function runQuery(query) {
+function runQuery(query) {
     let textQuery;
     try {
-        if(typeof query === 'string') {
-            textQuery = query;
-        } else {
-            const builtQuery = jsonSql.build(query);
-            // add strings to the query using pg-format
-            // pg-format uses %% as the % character, since % is reserved
-            let rawTextQuery = builtQuery.query.replace('%', '%%');
-            const values = Object.keys(builtQuery.values).sort().map((key) => {
-                rawTextQuery = rawTextQuery.replace('$' + key, "'%s'");
-                return builtQuery.values[key];
-            });
-            textQuery = format(...[rawTextQuery].concat(values));
-        }
-        return await getDB().query(textQuery);
+        const builtQuery = jsonSql.build(query);
+        textQuery = builtQuery.query.replace(/\$p\d/g, match => format.literal(builtQuery.values[match.substring(1)]));
+        return getDB().query(textQuery);
     } catch(e) {
         console.log("Failed query:\n" + JSON.stringify(query, null, 2));
         console.log("Failed query as text:\n" + textQuery);
@@ -66,17 +53,17 @@ async function runQuery(query) {
     }
 }
 
-async function queryOne(query) {
-    const results = await runQuery(query);
-    if(results.rows.length === 0) {
-        return null;
-    }
-    return results.rows[0];
+function queryOne(query) {
+    return runQuery(query).then(results => {
+        if(results.rows.length === 0) {
+            return null;
+        }
+        return results.rows[0];
+    });
 }
 
-async function queryAll(query) {
-    const results = await runQuery(query);
-    return {
-        rows: results.rows
-    }
+function queryAll(query) {
+    return runQuery(query).then(results => {
+        return { rows: results.rows }
+    });
 }

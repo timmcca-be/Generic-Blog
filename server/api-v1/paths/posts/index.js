@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = (postsService, dbService, responseService) => {
-    const GET = responseService.respond((req) => postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit, req.query.charLimit));
+    const GET = responseService.respond(req => postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit, req.query.charLimit));
 
-    const POST = responseService.respond((req) => postsService.createPost(dbService, req.body.title, req.body.content, req.auth.userId));
+    const POST = responseService.respond(req => postsService.createPost(dbService, req.body.title, req.body.content, req.auth.userId));
 
     GET.apiDoc = `
         description: Get summaries of posts
@@ -32,7 +32,7 @@ module.exports = (postsService, dbService, responseService) => {
             required: false
             type: integer
             minimum: 1
-            default: 200
+            default: 400
         responses:
           "200":
             description: Success

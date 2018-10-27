@@ -7,9 +7,8 @@ func should accept an Express res object that returns what should be sent to the
 This returns an Express route function that uses func
 */
 function respond(func, code = 200) {
-    return async (req, res, next) => {
-        try {
-            const response = await func(req);
+    return (req, res, next) =>
+        func(req).then(response => {
             const validationError = res.validateResponse(code, response);
             if(validationError) {
                 console.log('Failing response (status: ' + code + '):');
@@ -17,8 +16,5 @@ function respond(func, code = 200) {
                 throw validationError;
             }
             res.status(code).send(response);
-        } catch(err) {
-            next(err);
-        }
-    }
+        }).catch(next);
 }

@@ -9,19 +9,21 @@ class App extends Component {
         this.state = {
             posts: []
         };
-        new Sdk('/api/v1').getPostSummaries({charLimit: 60}).then((summaries) => {
-            this.setState({
-                posts: summaries.rows
-            });
-        });
+        new Sdk('/api/v1').getPostSummaries({}).then(summaries => this.setState({ posts: summaries.rows }));
     }
 
     render() {
         return (
-            <div className={styles.container}>
-                {
-                    this.state.posts.map((post, i) => <Card {...post} key={i} />)
-                }
+            <div>
+                <div className={styles.top}>
+                    <p className={styles.title}>Bloog</p>
+                    <input className={styles.search} type="text" placeholder="Search" />
+                </div>
+                <div className={styles.container}>
+                    {
+                        this.state.posts.map((post, i) => <Card {...post} key={i} />)
+                    }
+                </div>
             </div>
         )
     }
