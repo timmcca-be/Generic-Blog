@@ -1,33 +1,58 @@
 .container {
     margin: auto;
+    padding-top: 200px;
     width: 732px;
 }
 .top {
-    padding: 27px 0;
-    width: 880px;
-    margin: auto;
-    margin-bottom: 18px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    position: fixed;
+    z-index: 1;
+    transition: all ease 0.2s;
+}
+.bigTop {
+    padding: 27px calc(50% - 440px);
+    width: 880px;
+    padding-bottom: 45px;
+}
+.miniTop {
+    width: 780px;
+    background-color: white;
+    padding: 5px calc(50% - 390px);
+    padding-bottom: 10px;
+    border-bottom: 2px solid lightgray;
+}
+.bigTop .title {
+    font-size: 72pt;
+}
+.miniTop .title {
+    font-size: 48pt;
 }
 .title {
     font-family: "Rockwell", "Times New Roman", serif;
-    font-size: 72pt;
     color: #333;
     margin: 0;
     display: inline-block;
+    transition: font-size 0.2s;
 }
 .search {
-    height: 53px;
     border: 2px solid #127185;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(18, 113, 133, 0.4);
     font-family: Helvetica, "Nimbus Sans", sans;
     font-size: 14pt;
-    padding: 5px 10px 1px 10px;
+    padding: 0 10px 1px 10px;
     margin: 0;
-    margin-top: 34px;
     width: 540px;
+    transition: all ease 0.2s;
+}
+.bigTop .search {
+    height: 53px;
+    margin-top: 34px;
+}
+.miniTop .search {
+    margin-top: 18px;
+    height: 40px;
 }
 .search:focus {
     box-shadow: inset 0 0 5px rgba(18, 113, 133, 0.2), 0 0 5px rgba(18, 113, 133, 0.4);
