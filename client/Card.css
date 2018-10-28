@@ -19,7 +19,7 @@
     word-wrap: break-word;
 }
 .content {
-    font-family: Helvetica, "Nimbus Sans", sans;
+    font-family: "Trebuchet MS", Helvetica, "Nimbus Sans", sans;
     font-size: 14pt;
     margin: 0;
     color: #333;
@@ -42,7 +42,7 @@
     height: 54px;
 }
 .author {
-    font-family: Helvetica, "Nimbus Sans", sans;
+    font-family: "Trebuchet MS", Helvetica, "Nimbus Sans", sans;
     font-size: 12pt;
     margin: 0;
     color: #4d95a4;
