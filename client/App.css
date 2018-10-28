@@ -8,11 +8,11 @@
     grid-template-columns: 1fr 1fr;
     position: fixed;
     z-index: 1;
-    transition: all ease 0.2s;
 }
 .bigTop {
     padding: 100px calc(50% - 440px);
     width: 880px;
+    transition: background-color 0.1s, border-bottom 0.1s, width 0.2s, padding 0.2s;
 }
 .miniTop {
     width: 780px;
@@ -20,6 +20,7 @@
     padding: 5px calc(50% - 390px);
     padding-bottom: 10px;
     border-bottom: 2px solid lightgray;
+    transition: background-color 0.1s ease 0.1s, border-bottom 0.1s ease 0.1s, width 0.2s, padding 0.2s;
 }
 .bigTop .title {
     font-size: 72pt;
