@@ -1,3 +1,10 @@
+.app {
+    background-image: url(./pattern.svg);
+    background-attachment: fixed;
+    /* this stretches the padding to the bottom of the page, since it tells the
+    div to be at least as tall as its content */
+    padding-bottom: 1px;
+}
 .container {
     margin: auto;
     padding-top: 340px;
@@ -17,10 +24,11 @@
 .miniTop {
     width: 780px;
     background-color: white;
-    padding: 5px calc(50% - 390px);
+    padding: 2px calc(50% - 390px);
     padding-bottom: 10px;
     border-bottom: 2px solid lightgray;
     transition: background-color 0.1s ease 0.1s, border-bottom 0.1s ease 0.1s, width 0.2s, padding 0.2s;
+    box-shadow: 0 4px 10px rgba(18, 113, 133, 0.2);
 }
 .bigTop .title {
     font-size: 72pt;
@@ -51,7 +59,7 @@
     margin-top: 34px;
 }
 .miniTop .search {
-    margin-top: 18px;
+    margin-top: 19px;
     height: 40px;
 }
 .search:focus {

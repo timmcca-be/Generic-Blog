@@ -30,7 +30,7 @@ class App extends Component {
 
     render() {
         return (
-            <div>
+            <div className={styles.app}>
                 <div className={styles.top + ' ' + (this.state.miniTopBar ? styles.miniTop : styles.bigTop)}>
                     <p className={styles.title}>Bloog</p>
                     <input className={styles.search} type="text" placeholder="Search" />
