@@ -8,14 +8,14 @@ class App extends Component {
         super(props);
         this.state = {
             posts: [],
-            miniTopBar: false
+            bigTopBar: false
         };
-        this.handleScroll();
         new Sdk('/api/v1').getPostSummaries({}).then(summaries => this.setState({ posts: summaries.rows }));
     }
     
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+        this.handleScroll();
     }
     
     componentWillUnmount() {
@@ -24,14 +24,14 @@ class App extends Component {
     
     handleScroll() {
         this.setState({
-            miniTopBar: window.pageYOffset > 100
+            bigTopBar: window.pageYOffset < 100
         });
     }
 
     render() {
         return (
             <div className={styles.app}>
-                <div className={styles.top + ' ' + (this.state.miniTopBar ? styles.miniTop : styles.bigTop)}>
+                <div className={styles.top + (this.state.bigTopBar ? ' ' + styles.bigTop : '')}>
                     <p className={styles.title}>Bloog</p>
                     <input className={styles.search} type="text" placeholder="Search" />
                 </div>

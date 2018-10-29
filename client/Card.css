@@ -12,7 +12,7 @@
 }
 .title {
     font-family: Rockwell, "Times New Roman", serif;
-    font-size: 26pt;
+    font-size: 2.2rem;
     color: #1d5967;
     margin: 0;
     margin-bottom: 18px;
@@ -20,30 +20,29 @@
 }
 .content {
     font-family: "Trebuchet MS", Helvetica, "Nimbus Sans", sans;
-    font-size: 14pt;
+    font-size: 1.2rem;
     margin: 0;
     color: #333;
     word-wrap: break-word;
     text-align: justify;
-    line-height: 36px;
-    margin-bottom: 16px;
+    line-height: 2.2rem;
+    margin-bottom: 1.4rem;
     position: relative;
-    max-height: 108px;
+    max-height: 6.6rem;
     overflow: hidden;
 }
 .content::after {
     width: 100%;
     background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
     content: "";
-    height: 100px;
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 54px;
+    height: 3rem;
 }
 .author {
     font-family: "Trebuchet MS", Helvetica, "Nimbus Sans", sans;
-    font-size: 12pt;
+    font-size: 1rem;
     margin: 0;
     color: #4d95a4;
     width: 100%;

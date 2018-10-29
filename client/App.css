@@ -7,39 +7,27 @@
 }
 .container {
     margin: auto;
-    padding-top: 340px;
-    width: 732px;
+    padding: 12rem 0 0 0;
+    width: 100%;
 }
 .top {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     position: fixed;
     z-index: 1;
-}
-.bigTop {
-    padding: 100px calc(50% - 440px);
-    width: 880px;
-    transition: background-color 0.1s, border-bottom 0.1s, width 0.2s, padding 0.2s;
-}
-.miniTop {
-    width: 780px;
+    width: 100%;
     background-color: white;
-    padding: 2px calc(50% - 390px);
     padding-bottom: 10px;
     border-bottom: 2px solid lightgray;
-    transition: background-color 0.1s ease 0.1s, border-bottom 0.1s ease 0.1s, width 0.2s, padding 0.2s;
     box-shadow: 0 4px 10px rgba(18, 113, 133, 0.2);
+    transition: background-color 0.1s ease 0.1s, border-bottom 0.1s ease 0.1s, box-shadow 0.1s ease 0.1s, width 0.2s, padding 0.2s;
 }
-.bigTop .title {
-    font-size: 72pt;
-}
-.miniTop .title {
-    font-size: 48pt;
+.top .title {
+    font-size: 4rem;
 }
 .title {
     font-family: "Rockwell", "Times New Roman", serif;
     color: #333;
-    margin: 0;
+    margin: auto;
     display: inline-block;
     transition: font-size 0.2s;
 }
@@ -47,22 +35,51 @@
     border: 2px solid #127185;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(18, 113, 133, 0.4);
-    font-family: Helvetica, "Nimbus Sans", sans;
-    font-size: 14pt;
+    font-family: "Trebuchet MS", Helvetica, "Nimbus Sans", sans;
+    font-size: 1.2rem;
     padding: 0 10px 1px 10px;
-    margin: 0;
-    width: 540px;
+    margin: auto;
+    width: calc(100% - 40px);
     transition: all ease 0.2s;
 }
-.bigTop .search {
-    height: 53px;
-    margin-top: 34px;
-}
-.miniTop .search {
+.top .search {
     margin-top: 19px;
     height: 40px;
 }
 .search:focus {
     box-shadow: inset 0 0 5px rgba(18, 113, 133, 0.2), 0 0 5px rgba(18, 113, 133, 0.4);
     border-color: #4dcad6;
+}
+@media (min-width: 57rem) {
+    .container {
+        padding: 20rem 2rem 0 2rem;
+        width: 44rem;
+    }
+    .top {
+        grid-template-columns: 1fr 1fr;
+        width: 48rem;
+        padding: 2px calc(50% - 24rem) 10px calc(50% - 24rem);
+    }
+    .top.bigTop {
+        padding: 6rem calc(50% - 27.5rem);
+        width: 55rem;
+        background-color: transparent;
+        border-bottom: none;
+        box-shadow: none;
+        transition: background-color 0.1s, border-bottom 0.1s, box-shadow 0.1s, width 0.2s, padding 0.2s;
+    }
+    .top.bigTop .search {
+        height: 53px;
+        margin-top: 34px;
+    }
+    .top.bigTop .title {
+        font-size: 6rem;
+    }
+    .search {
+        width: 32rem;
+        margin: 0;
+    }
+    .title {
+        margin: 0;
+    }
 }
