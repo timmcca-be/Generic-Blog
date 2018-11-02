@@ -9,11 +9,16 @@ const swaggerUi = require('swagger-ui-express');
 const express = require('express');
 const app = express();
 
+const preactRenderToString = require("preact-render-to-string");
+import { h, Component } from 'preact';
+import ContextWrapper from '../client/ContextWrapper';
+
 const initServer = require('./initServer');
 const dbService = require('./api-v1/services/dbService');
 
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+app.set('view engine', 'ejs');
 
 // routes and services are dynamically loaded from filesystem through webpack
 
@@ -50,6 +55,15 @@ const apiDoc = initServer(app, paths, services);
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
 app.use(express.static('public'));
+
+app.get('/', function(req, res) {
+    const css = [];
+    const context = { insertCss: (...styles) => styles.forEach(style => css.push(style._getCss())) };
+    res.render('index.ejs', {
+        body: preactRenderToString(<ContextWrapper context={context} />),
+        styles: css.join('')
+    });
+});
 
 dbService.initDB().then(client => {
     app.listen(process.env.PORT, function() {

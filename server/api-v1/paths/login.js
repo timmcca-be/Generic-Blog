@@ -7,7 +7,7 @@ module.exports = (authService, dbService, responseService) => {
         if(err instanceof InvalidCredentialsError) {
             throw {
                 status: 401,
-                error: e.message
+                error: err.message
             };
         }
         throw err;

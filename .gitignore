@@ -3,3 +3,4 @@ debug
 dist
 node_modules
 public
+views

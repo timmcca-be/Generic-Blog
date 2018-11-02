@@ -1,9 +1,8 @@
 .app {
     background-image: url(./pattern.svg);
     background-attachment: fixed;
-    /* this stretches the padding to the bottom of the page, since it tells the
-    div to be at least as tall as its content */
-    padding-bottom: 1px;
+    position: relative;
+    min-height: 100vh;
 }
 .container {
     margin: auto;
@@ -21,34 +20,45 @@
     box-shadow: 0 4px 10px rgba(18, 113, 133, 0.2);
     transition: background-color 0.1s ease 0.1s, border-bottom 0.1s ease 0.1s, box-shadow 0.1s ease 0.1s, width 0.2s, padding 0.2s;
 }
-.top .title {
-    font-size: 4rem;
-}
 .title {
+    font-size: 4rem;
     font-family: "Rockwell", "Times New Roman", serif;
     color: #333;
     margin: auto;
     display: inline-block;
     transition: font-size 0.2s;
 }
-.search {
-    border: 2px solid #127185;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(18, 113, 133, 0.4);
-    font-family: "Trebuchet MS", Helvetica, "Nimbus Sans", sans;
-    font-size: 1.2rem;
-    padding: 0 10px 1px 10px;
+.top .search {
     margin: auto;
     width: calc(100% - 40px);
+    margin-top: 19px;
     transition: all ease 0.2s;
 }
-.top .search {
-    margin-top: 19px;
-    height: 40px;
+.menuButton {
+    position: absolute;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 0.5rem;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 4;
 }
-.search:focus {
-    box-shadow: inset 0 0 5px rgba(18, 113, 133, 0.2), 0 0 5px rgba(18, 113, 133, 0.4);
-    border-color: #4dcad6;
+.menuButton:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+.menuButtonPushedOut {
+    margin-left: calc(100% - 5.5rem);
+}
+.menuIcon {
+    font-family: serif;
+    font-size: 3rem;
+    margin: 0rem 1.3rem 0.65rem 1.3rem;
+}
+@media (min-width: 31.75rem) {
+    .menuButtonPushedOut {
+        margin-left: 25.5rem;
+    }
 }
 @media (min-width: 57rem) {
     .container {
@@ -69,15 +79,14 @@
         transition: background-color 0.1s, border-bottom 0.1s, box-shadow 0.1s, width 0.2s, padding 0.2s;
     }
     .top.bigTop .search {
-        height: 53px;
-        margin-top: 34px;
+        height: 3.35rem;
+        margin-top: 2.1rem;
     }
-    .top.bigTop .title {
+    .bigTop .title {
         font-size: 6rem;
     }
-    .search {
+    .top .search {
         width: 32rem;
-        margin: 0;
     }
     .title {
         margin: 0;

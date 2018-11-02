@@ -15,6 +15,7 @@ function login(dbService, username, password) {
         table: 'users',
         fields: [
             'id',
+            'username',
             'password',
             'salt'
         ],
@@ -31,7 +32,7 @@ function login(dbService, username, password) {
             throw new InvalidCredentialsError();
         }
         // create token of type login - in the future, account activation and password reset tokens will also be used, and these need to be easily distinguishable from each other
-        return { token: jwt.sign({userId: row.id, type: 'login'}, process.env.TOKEN_SECRET, {expiresIn: '1d'}) };
+        return { token: jwt.sign({userId: row.id, username: row.username, type: 'login'}, process.env.TOKEN_SECRET, {expiresIn: '1d'}) };
     });
 }
 
@@ -50,7 +51,7 @@ function createUser(dbService, username, password, email) {
         returning: ['id']
     };
     return dbService.queryOne(query).then(result => {
-        return { token: jwt.sign({userId: result.id, type: 'login' }, process.env.TOKEN_SECRET, { expiresIn: '1d' }) };
+        return { token: jwt.sign({userId: result.id, username, type: 'login' }, process.env.TOKEN_SECRET, { expiresIn: '1d' }) };
     }).catch(err => {
         if(err.code === '23505') {
             throw new NotUniqueError(err.detail);

@@ -7,9 +7,6 @@
     <title>Generic Blog</title>
     <style>
         body {
-            background-image: linear-gradient(to bottom right, #d0e3e6, #d6f9f5);
-            background-repeat: no-repeat;
-            background-image: url(./pattern.svg);
             margin: 0;
             padding: 0;
         }
@@ -17,11 +14,15 @@
             background-color: #d6f9f5;
             padding: 0;
         }
+        * {
+            font-family: "Trebuchet MS", Helvetica, "Nimbus Sans", sans;
+        }
     </style>
+    <style id="ssrStyles"><%= '\<\%\- styles \%\>' %></style>
 </head>
 
 <body>
-    <div id="root"></div>
+    <div id="root"><%= '\<\%\- body \%\>' %></div>
 </body>
 
 </html>

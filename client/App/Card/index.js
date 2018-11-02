@@ -1,6 +1,9 @@
+'use strict';
+
 import { h, Component } from 'preact';
 import Sdk from 'sdk';
 import styles from './Card.css';
+import withStyles from '../../withStyles';
 
 function Card(props) {
     return (
@@ -12,4 +15,4 @@ function Card(props) {
     );
 }
 
-export default Card;
+export default withStyles(styles)(Card);

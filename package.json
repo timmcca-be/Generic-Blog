@@ -5,15 +5,16 @@
   "sideEffects": false,
   "scripts": {
     "start": "node dist/app.min.js",
-    "start:dev": "webpack --config webpack.dev.config.js --watch",
+    "start:dev": "webpack --config webpack.server.dev.config.js --watch",
     "build": "npm run build:server && npm run build:client",
-    "build:server": "webpack --config webpack.prod.config.js",
-    "build:client": "webpack --config webpack.client.config.js",
+    "build:server": "webpack --config webpack.server.prod.config.js",
+    "build:client": "webpack --config webpack.client.prod.config.js",
     "test": "node server/runTests.js"
   },
   "author": "Tim McCabe",
   "dependencies": {
     "dotenv": "^6.1.0",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-openapi": "^3.0.2",
     "json-sql": "^0.4.11",
@@ -21,8 +22,8 @@
     "morgan": "^1.9.1",
     "pg": "^7.5.0",
     "pg-format": "^1.0.4",
+    "preact-render-to-string": "^4.1.0",
     "source-map-support": "^0.5.9",
-    "style-loader": "^0.23.1",
     "swagger-ui-express": "^4.0.1"
   },
   "devDependencies": {
@@ -37,7 +38,10 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "nodemon-webpack-plugin": "^3.0.1",
+    "isomorphic-style-loader": "^4.0.0",
+    "jwt-decode": "^2.2.0",
+    "nodemon": "^1.18.5",
+    "postcss-loader": "^3.0.0",
     "preact": "^8.3.1",
     "swagger-client": "^3.8.21",
     "swagger-js-codegen": "^1.12.0",
@@ -46,6 +50,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-closure-compiler": "^2.1.6",
     "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4",
     "webpack-node-externals": "^1.7.2",
     "webpack-shell-plugin": "^0.5.0"
   }

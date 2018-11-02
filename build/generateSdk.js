@@ -13,13 +13,13 @@ const CodeGen = require('swagger-js-codegen').CodeGen;
 const express = require('express');
 const app = express();
 
-const initServer = require('./server/initServer');
+const initServer = require('../server/initServer');
 
-const paths = path.resolve(__dirname, './server/api-v1/paths');
+const paths = path.resolve(__dirname, '../server/api-v1/paths');
 
 const services = {};
-fs.readdirSync(path.resolve(__dirname, './server/api-v1/services')).forEach(name => {
-    services[name.substring(0, name.length - 3)] = require('./server/api-v1/services/' + name);
+fs.readdirSync(path.resolve(__dirname, '../server/api-v1/services')).forEach(name => {
+    services[name.substring(0, name.length - 3)] = require('../server/api-v1/services/' + name);
 });
 
 const apiDoc = initServer(app, paths, services);
