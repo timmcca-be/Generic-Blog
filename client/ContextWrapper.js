@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import App from './App';
+import App from './App/App';
 
 class ContextWrapper extends Component {
     getChildContext() {

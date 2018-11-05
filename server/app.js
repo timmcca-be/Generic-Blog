@@ -57,11 +57,11 @@ app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-    const css = [];
-    const context = { insertCss: (...styles) => styles.forEach(style => css.push(style._getCss())) };
+    const css = new Set();
+    const context = { insertCss: (...styles) => styles.forEach(style => css.add(style._getCss())) };
     res.render('index.ejs', {
         body: preactRenderToString(<ContextWrapper context={context} />),
-        styles: css.join('')
+        styles: [...css].join('')
     });
 });
 

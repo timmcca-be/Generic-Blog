@@ -3,11 +3,11 @@
 import { h, Component } from 'preact';
 import Sdk from 'sdk';
 import styles from './App.css';
-import inputStyles from '../input.css';
-import Card from './Card';
-import Sidebar from './Sidebar';
+import inputStyles from 'shared/input.css';
+import Card from './Card/Card';
+import Sidebar from './Sidebar/Sidebar';
 import jwtDecode from 'jwt-decode';
-import withStyles from '../withStyles';
+import withStyles from 'shared/withStyles';
 
 const client = new Sdk('/api/v1');
 
@@ -17,14 +17,17 @@ class App extends Component {
         this.state = {
             posts: [],
             bigTopBar: true,
-            showSide: false
+            showSide: false,
+            allLoaded: false,
+            pending: true,
+            initialLoadComplete: false
         };
     }
     
     componentDidMount() {
+        this.getSummaries();
         window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
         this.handleScroll();
-        client.getPostSummaries({}).then(summaries => this.setState({ posts: summaries.rows }));
     }
     
     componentWillUnmount() {
@@ -35,6 +38,17 @@ class App extends Component {
         this.setState({
             bigTopBar: window.pageYOffset < 100
         });
+        if(this.state.pending || this.state.allLoaded || window.pageYOffset + window.innerHeight < document.body.clientHeight - 1000) {
+            return;
+        }
+        this.getSummaries();
+    }
+    
+    getSummaries() {
+        this.setState({ pending: true })
+        client.getPostSummaries({ start: this.state.posts.length + 1, limit: 20 }).then(
+            summaries => this.setState({ posts: this.state.posts.concat(summaries.rows), allLoaded: summaries.rows.length < 20, pending: false })
+        );
     }
     
     login(username, password) {
@@ -69,6 +83,9 @@ class App extends Component {
                 <div className={styles.container}>
                     {
                         this.state.posts.map((post, i) => <Card {...post} key={i} />)
+                    }
+                    { this.state.pending &&
+                        new Array(20).fill(<Card />)
                     }
                 </div>
             </div>

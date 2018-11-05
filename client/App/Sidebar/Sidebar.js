@@ -2,8 +2,8 @@
 
 import { h, Component } from 'preact';
 import styles from './Sidebar.css';
-import inputStyles from '../../input.css';
-import withStyles from '../../withStyles';
+import inputStyles from 'shared/input.css';
+import withStyles from 'shared/withStyles';
 
 class Sidebar extends Component {
     constructor(props) {

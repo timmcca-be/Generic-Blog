@@ -20,4 +20,6 @@ const context = {
 render(<ContextWrapper context={context} />, document.getElementById('root'), document.getElementById('root').lastChild);
 
 const node = document.getElementById('ssrStyles');
-node.parent.removeChild(node);
+if(node) {
+    node.parentElement.removeChild(node);
+}

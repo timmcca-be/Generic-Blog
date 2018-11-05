@@ -44,7 +44,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            sdk$: path.resolve(__dirname, './generateSdk.js')
+            sdk$: path.resolve(__dirname, './generateSdk.js'),
+            shared: path.resolve(__dirname, '../client/shared')
         }
     }
 };
