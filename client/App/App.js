@@ -6,6 +6,7 @@ import styles from './App.css';
 import inputStyles from 'shared/input.css';
 import Card from './Card/Card';
 import Sidebar from './Sidebar/Sidebar';
+import LoadIcon from './LoadIcon/LoadIcon';
 import jwtDecode from 'jwt-decode';
 import withStyles from 'shared/withStyles';
 
@@ -46,7 +47,7 @@ class App extends Component {
     
     getSummaries() {
         this.setState({ pending: true })
-        client.getPostSummaries({ start: this.state.posts.length + 1, limit: 20 }).then(
+        client.getPostSummaries({ start: this.state.posts.length, limit: 20 }).then(
             summaries => this.setState({ posts: this.state.posts.concat(summaries.rows), allLoaded: summaries.rows.length < 20, pending: false })
         );
     }
@@ -85,7 +86,7 @@ class App extends Component {
                         this.state.posts.map((post, i) => <Card {...post} key={i} />)
                     }
                     { this.state.pending &&
-                        new Array(20).fill(<Card />)
+                        <LoadIcon />
                     }
                 </div>
             </div>

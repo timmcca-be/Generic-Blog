@@ -5,6 +5,7 @@ module.exports = { respond };
 /*
 func should accept an Express res object that returns what should be sent to the user based on the request
 This returns an Express route function that uses func
+This method takes care of error handling and response validation so that the endpoint simply sees a request and returns a JSON object
 */
 function respond(func, code = 200) {
     return (req, res, next) =>

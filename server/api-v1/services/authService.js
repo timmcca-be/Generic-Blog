@@ -9,6 +9,11 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { InvalidCredentialsError, NotUniqueError } = require('../shared/errors');
 
+function loginToken(id, username) {
+    // create token of type login - in the future, account activation and password reset tokens will also be used, and these need to be easily distinguishable from each other
+    return { token: jwt.sign({ userId: id, username, type: 'login' }, process.env.TOKEN_SECRET, { expiresIn: '1d' }) };
+}
+
 function login(dbService, username, password) {
     const query = {
         type: 'select',
@@ -31,8 +36,7 @@ function login(dbService, username, password) {
             // invalid password
             throw new InvalidCredentialsError();
         }
-        // create token of type login - in the future, account activation and password reset tokens will also be used, and these need to be easily distinguishable from each other
-        return { token: jwt.sign({userId: row.id, username: row.username, type: 'login'}, process.env.TOKEN_SECRET, {expiresIn: '1d'}) };
+        return loginToken(row.id, row.username);
     });
 }
 
@@ -51,7 +55,7 @@ function createUser(dbService, username, password, email) {
         returning: ['id']
     };
     return dbService.queryOne(query).then(result => {
-        return { token: jwt.sign({userId: result.id, username, type: 'login' }, process.env.TOKEN_SECRET, { expiresIn: '1d' }) };
+        return loginToken(result.id, username);
     }).catch(err => {
         if(err.code === '23505') {
             throw new NotUniqueError(err.detail);

@@ -16,8 +16,8 @@ module.exports = (postsService, dbService, responseService) => {
             description: The index of the first post to get
             required: false
             type: integer
-            minimum: 1
-            default: 1
+            minimum: 0
+            default: 0
           - name: limit
             in: query
             description: The maximum number of posts to get

@@ -14,9 +14,7 @@ function getPost(dbService, id) {
         table: 'posts',
         join: { users: { on: { 'users.id': 'posts.user_id' } } },
         fields: [
-            'posts.title',
-            'posts.content',
-            'posts.user_id',
+            'posts.*',
             {
                 table: 'users',
                 name: 'username',
@@ -31,61 +29,36 @@ function getPost(dbService, id) {
 }
 
 function getSummariesPaginated(dbService, start, limit, charLimit) {
-    const subQuery = {
-        select: {
-            table: 'posts',
-            fields: [
-                '*',
-                {
-                    expression: {
-                        pattern: '{operation} OVER (ORDER BY {column} DESC)',
-                        values: {
-                            operation: { func: { name: 'ROW_NUMBER' } },
-                            column: {
-                                field: 'id'
-                            }
-                        }
-                    },
-                    alias: 'RowNum'
-                }
-            ]
-        }
-    };
     const query = {
         type: 'select',
-        with: {
-            PaginatedPosts: subQuery
-        },
-        table: 'PaginatedPosts',
-        join: { users: { on: { 'users.id': 'PaginatedPosts.user_id' } } },
+        table: 'posts',
+        join: { users: { on: { 'users.id': 'posts.user_id' } } },
         fields: [
-            'PaginatedPosts.title',
+            'posts.title',
+            'posts.id',
+            'posts.user_id',
             {
+                table: 'users',
+                name: 'username',
+                alias: 'author'
+            }, {
                 expression: {
                     pattern: 'left({column}, {charLimit})',
                     values: {
                         column: {
-                            field: 'PaginatedPosts.content'
+                            field: 'posts.content'
                         },
                         charLimit
                     }
                 },
                 alias: 'content'
-            },
-            'PaginatedPosts.user_id',
-            {
-                table: 'users',
-                name: 'username',
-                alias: 'author'
             }
         ],
-        condition: {
-            'PaginatedPosts.RowNum': {
-                $gte: start,
-                $lt: start + limit
-            }
+        sort: {
+            id: -1
         },
-        sort: 'PaginatedPosts.RowNum'
+        offset: start,
+        limit
     };
     return dbService.queryAll(query);
 }
