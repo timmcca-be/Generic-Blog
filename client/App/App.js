@@ -24,17 +24,17 @@ class App extends Component {
             initialLoadComplete: false
         };
     }
-    
+
     componentDidMount() {
         this.getSummaries();
         window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
         this.handleScroll();
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
     }
-    
+
     handleScroll() {
         this.setState({
             bigTopBar: window.pageYOffset < 100
@@ -44,14 +44,14 @@ class App extends Component {
         }
         this.getSummaries();
     }
-    
+
     getSummaries() {
         this.setState({ pending: true })
         client.getPostSummaries({ start: this.state.posts.length, limit: 20 }).then(
             summaries => this.setState({ posts: this.state.posts.concat(summaries.rows), allLoaded: summaries.rows.length < 20, pending: false })
         );
     }
-    
+
     login(username, password) {
         client.login({
             user: {

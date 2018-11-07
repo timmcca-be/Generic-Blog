@@ -11,7 +11,7 @@ module.exports = merge(common, {
         path: path.resolve(__dirname, './debug')
     },
     plugins: [
-        new WebpackShellPlugin({onBuildEnd:['nodemon debug/app.min.js', 'webpack-dev-server --config webpack.client.dev.config.js --hot']})
+        new WebpackShellPlugin({onBuildEnd:['browser-refresh debug/app.min.js', 'webpack --config webpack.client.dev.config.js --hot --watch']})
     ],
     optimization: {
         minimize: false

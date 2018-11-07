@@ -61,12 +61,16 @@ app.get('/', function(req, res) {
     const context = { insertCss: (...styles) => styles.forEach(style => css.add(style._getCss())) };
     res.render('index.ejs', {
         body: preactRenderToString(<ContextWrapper context={context} />),
-        styles: [...css].join('')
+        styles: [...css].join(''),
+        refreshScript: process.env.NODE_ENV === 'development' ? '<script src="' + process.env.BROWSER_REFRESH_URL + '"></script>' : ''
     });
 });
 
 dbService.initDB().then(client => {
     app.listen(process.env.PORT, function() {
         console.log('Listening on port ' + process.env.PORT);
+        if (process.send) {
+            process.send('online');
+        }
     });
 });
