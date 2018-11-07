@@ -6,6 +6,7 @@ module.exports = {
     queryAll
 };
 
+const promisify = require('util').promisify;
 const pg = require('pg');
 const format = require('pg-format');
 const jsonSql = require('json-sql')();
@@ -22,14 +23,11 @@ function initDB() {
         database: process.env.DB_NAME
     };
     const pool = new pg.Pool(config)
-    return new Promise((resolve, reject) => {
-        pool.connect(function (err, client, done) {
-            if(err) {
-                reject(err);
-            }
-            db = client;
-            resolve(client);
-        });
+    // pool.connect takes a callback and we want a promise, so promisify the
+    // connect function, bind it to the pool object, and run it
+    return promisify(pool.connect).bind(pool)().then((client) => {
+        db = client;
+        return client;
     });
 }
 

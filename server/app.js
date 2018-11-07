@@ -56,7 +56,7 @@ app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
 app.use(express.static('public'));
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     const css = new Set();
     const context = { insertCss: (...styles) => styles.forEach(style => css.add(style._getCss())) };
     res.render('index.ejs', {
