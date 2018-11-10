@@ -1,5 +1,3 @@
-'use strict';
-
 let host = 'localhost:' + process.env.PORT;
 if(process.env.NODE_ENV === 'production') {
     host = process.env.PRODUCTION_HOSTNAME;

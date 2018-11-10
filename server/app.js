@@ -1,5 +1,3 @@
-'use strict';
-
 require('dotenv').config();
 
 const path = require('path');
@@ -54,7 +52,7 @@ const apiDoc = initServer(app, paths, services);
 
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
-app.use(express.static('public'));
+app.use(express.static((process.env.NODE_ENV === 'development' ? 'debug' : 'dist') + '/public'));
 
 app.get('/', (req, res) => {
     const css = new Set();

@@ -1,5 +1,3 @@
-'use strict';
-
 const { initialize } = require('express-openapi');
 
 module.exports = (app, paths, dependencies) => initialize({

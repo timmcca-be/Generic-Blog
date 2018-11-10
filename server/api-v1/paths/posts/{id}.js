@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = (postsService, dbService, responseService) => {
     const GET = responseService.respond(req => postsService.getPost(dbService, req.params.id).then(post => {
         if(!post) {

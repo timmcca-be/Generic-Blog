@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     module: {
@@ -47,5 +48,13 @@ module.exports = {
             sdk$: path.resolve(__dirname, './generateSdk.js'),
             shared: path.resolve(__dirname, '../client/shared')
         }
-    }
+    },
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: "'use strict';",
+            raw: true,
+            entryOnly: false,
+            include: /(client|server)\/.+\.js/
+        })
+    ]
 };

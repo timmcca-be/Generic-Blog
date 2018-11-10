@@ -1,5 +1,3 @@
-'use strict';
-
 const { NotUniqueError } = require('../shared/errors');
 
 module.exports = (authService, dbService, responseService) => {

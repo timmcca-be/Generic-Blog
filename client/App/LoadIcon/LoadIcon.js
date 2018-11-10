@@ -1,5 +1,3 @@
-'use strict';
-
 import { h, Component } from 'preact';
 import styles from './LoadIcon.css';
 import withStyles from 'shared/withStyles';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { h, Component } from 'preact';
 import Sdk from 'sdk';
 import styles from './App.css';
@@ -20,14 +18,14 @@ class App extends Component {
             bigTopBar: true,
             showSide: false,
             allLoaded: false,
-            pending: true,
-            initialLoadComplete: false
+            pending: true
         };
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
         this.getSummaries();
-        window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+        window.addEventListener('scroll', this.handleScroll, { passive: true });
         this.handleScroll();
     }
 

@@ -1,5 +1,3 @@
-'use strict';
-
 function serverError(res) {
     // Thought about using response validation here, decided the risk of an infinite loop
     // (invalid response! better send the "internal server error" response. invalid response! ...)

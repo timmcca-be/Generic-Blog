@@ -1,5 +1,3 @@
-'use strict';
-
 import { h, Component } from 'preact';
 import styles from './Card.css';
 import withStyles from 'shared/withStyles';

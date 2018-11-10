@@ -1,5 +1,3 @@
-'use strict';
-
 import { h, render } from 'preact';
 import ContextWrapper from './ContextWrapper';
 

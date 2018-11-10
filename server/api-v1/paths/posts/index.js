@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = (postsService, dbService, responseService) => {
     const GET = responseService.respond(req => postsService.getSummariesPaginated(dbService, req.query.start, req.query.limit, req.query.charLimit));
 

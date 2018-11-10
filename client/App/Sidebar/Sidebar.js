@@ -1,5 +1,3 @@
-'use strict';
-
 import { h, Component } from 'preact';
 import styles from './Sidebar.css';
 import inputStyles from 'shared/input.css';
