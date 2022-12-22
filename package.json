@@ -16,7 +16,7 @@
     "express": "^4.16.4",
     "express-openapi": "^3.0.2",
     "json-sql": "^0.4.11",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.9.1",
     "pg": "^7.5.0",
     "pg-format": "^1.0.4",
