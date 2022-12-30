@@ -41,7 +41,7 @@
     "jwt-decode": "^2.2.0",
     "postcss-loader": "^3.0.0",
     "preact": "^8.3.1",
-    "swagger-client": "^3.8.21",
+    "swagger-client": "^3.18.5",
     "swagger-js-codegen": "^1.12.0",
     "val-loader": "^1.1.1",
     "webpack": "^4.22.0",
